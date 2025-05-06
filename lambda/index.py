@@ -23,7 +23,7 @@ def extract_region_from_arn(arn):
 # モデルID
 # MODEL_ID = os.environ.get("MODEL_ID", "us.amazon.nova-lite-v1:0")
 
-FASTAPI_URL = "https://d5ab-34-142-241-115.ngrok-free.app/"
+FASTAPI_URL = "https://8885-34-143-161-193.ngrok-free.app/generate"
 
 def build_prompt(msgs):
     lines = []
@@ -119,22 +119,24 @@ def lambda_handler(event, context):
         payload = {
             "prompt": prompt,
             "max_new_tokens": 512,
+            "do_sample": true,
             "temperature": 0.7,
-            "top_p": 0.9,
-            "do_sample": True
+            "top_p": 0.9
         }
         data_bytes = json.dumps(payload).encode("utf-8")
         req = urlrequest.Request(
-            f"{FASTAPI_URL}/generate",
+            FASTAPI_URL,
             data=data_bytes,
             headers={"Content-Type": "application/json"},
             method="POST"
         )
-        start_time = time.time()
+
         with urlrequest.urlopen(req, timeout=30) as resp:
-            resp_data = json.loads(resp.read().decode("utf-8"))
-        response_time = time.time() - start_time
-        assistant_response = resp_data.get("generated_text")
+            response_body  = json.loads(resp.read().decode("utf-8"))
+        print("FAST API responce: ",json.dumps(response_body, default=str))
+
+        # アシスタントの応答を取得
+        assistant_response = response_body["generated_text"]
         
         # アシスタントの応答を会話履歴に追加
         messages.append({
