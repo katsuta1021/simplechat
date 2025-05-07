@@ -23,7 +23,7 @@ def extract_region_from_arn(arn):
 # モデルID
 # MODEL_ID = os.environ.get("MODEL_ID", "us.amazon.nova-lite-v1:0")
 
-FASTAPI_URL = "https://8885-34-143-161-193.ngrok-free.app/generate"
+FASTAPI_URL = "https://a24c-35-247-140-243.ngrok-free.app/generate"
 
 def build_prompt(msgs):
     lines = []
