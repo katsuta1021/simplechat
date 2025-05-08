@@ -23,7 +23,7 @@ def extract_region_from_arn(arn):
 # モデルID
 # MODEL_ID = os.environ.get("MODEL_ID", "us.amazon.nova-lite-v1:0")
 
-FASTAPI_URL = "https://a24c-35-247-140-243.ngrok-free.app/generate"
+FASTAPI_URL = "https://e3aa-34-90-37-221.ngrok-free.app/generate"
 
 def build_prompt(msgs):
     lines = []
@@ -119,7 +119,7 @@ def lambda_handler(event, context):
         payload = {
             "prompt": prompt,
             "max_new_tokens": 512,
-            "do_sample": true,
+            "do_sample": True,
             "temperature": 0.7,
             "top_p": 0.9
         }
